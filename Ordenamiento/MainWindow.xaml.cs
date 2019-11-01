@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-  
+
 namespace Ordenamiento
 {
     /// <summary>
@@ -23,6 +10,9 @@ namespace Ordenamiento
     {
 
         ObservableCollection<int> miLista = new ObservableCollection<int>();
+        ObservableCollection<Alumno> alumnos = new ObservableCollection<Alumno>();
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -34,10 +24,16 @@ namespace Ordenamiento
             miLista.Add(32);
             miLista.Add(562);
             miLista.Add(167);
-            
+            alumnos.Add(new Alumno("jose", 7.2f, 4));
+            alumnos.Add(new Alumno("lilian", 2.3f, 1));
+            alumnos.Add(new Alumno("ana", 9.0f, 2));
+            alumnos.Add(new Alumno("mara", 6.4f, 0));
+            alumnos.Add(new Alumno("jojo", 8.9f, 9));
+            alumnos.Add(new Alumno("jjo", 8f, 9));
 
 
-            lstnumeros.ItemsSource = miLista;
+            lstnumeros.ItemsSource = alumnos;
+            //lstnumeros.ItemsSource = miLista;
         }
 
 
@@ -50,22 +46,22 @@ namespace Ordenamiento
 
             int gab, temp, i, j;
             gab = miLista.Count / 2; //el numero de elementos entre dos
-            
 
-            while(gab>0)
+
+            while (gab > 0)
             {
-                for(i=0; i<miLista.Count; i++)
+                for (i = 0; i < miLista.Count; i++)
                 {
-                    
 
-                        if (gab + i< miLista.Count && miLista[i] > miLista[gab + i])
-                        {
-                            temp = miLista[i];
-                            miLista[i] = miLista[gab + i];
-                            miLista[gab + i] = temp;
-                        }
-                    
-                    
+
+                    if (gab + i < miLista.Count && miLista[i] > miLista[gab + i])
+                    {
+                        temp = miLista[i];
+                        miLista[i] = miLista[gab + i];
+                        miLista[gab + i] = temp;
+                    }
+
+
                 }
                 gab--; //restar uno 
             }
@@ -76,31 +72,59 @@ namespace Ordenamiento
 
         private void BtnBubble_Click(object sender, RoutedEventArgs e)
         {
-           
-            
-            
+
+
+
             bool intercambio = false;
             do
             {
 
 
                 intercambio = false;
-                for(int i=0; i<miLista.Count-1; i++)
+                for (int i = 0; i < miLista.Count - 1; i++)
                 {
-                    
-                        if(miLista[i]>miLista[i++])
-                        {
-                            int temp = miLista[i];
-                            miLista[i] = miLista[i+1];
-                            miLista[i + 1] = temp;
-                            intercambio = true;
-                        }
 
-                    
+                    if (miLista[i] > miLista[i++])
+                    {
+                        int temp = miLista[i];
+                        miLista[i] = miLista[i + 1];
+                        miLista[i + 1] = temp;
+                        intercambio = true;
+                    }
+
+
                 }
 
             } while (intercambio);
 
+        }
+
+        private void Btnordenarnombres_Click(object sender, RoutedEventArgs e)
+        {
+            int gab, i, j;
+            gab = alumnos.Count / 2; //el numero de elementos entre dos
+
+
+            while (gab > 0)
+            {
+                for (i = 0; i < alumnos.Count; i++)
+                {
+
+                    //utilizar otra lista, y cuando se evaluen no se hace directo de la lista, si un valor/propiedad de la lsta.
+                    if (gab + i < alumnos.Count && alumnos[i].Promedio > alumnos[gab + i].Promedio)// un string no puede usar el <>
+                    {
+                        var temp = alumnos[i];
+
+                        alumnos[i] = alumnos[gab + i];
+
+                        alumnos[gab + i] = temp;//var, variable de tipo implicita
+
+                    }
+
+
+                }
+                gab--; //restar uno 
+            }
         }
     }
 }
