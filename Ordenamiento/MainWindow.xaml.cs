@@ -44,21 +44,26 @@ namespace Ordenamiento
             miLista[0] = miLista[3];
             miLista[3] = temp;*/
 
-            int gab, temp, i, j;
+            int gab, i, j;
             gab = miLista.Count / 2; //el numero de elementos entre dos
 
 
             while (gab > 0)
             {
-                for (i = 0; i < miLista.Count; i++)
+                for (i = 0; i < alumnos.Count; i++)
                 {
 
 
-                    if (gab + i < miLista.Count && miLista[i] > miLista[gab + i])
+
+                    //utilizar otra lista, y cuando se evaluen no se hace directo de la lista, si un valor/propiedad de la lsta.
+                    if (gab + i < alumnos.Count && alumnos[i].Faltas > alumnos[gab + i].Faltas)// un string no puede usar el <>
                     {
-                        temp = miLista[i];
-                        miLista[i] = miLista[gab + i];
-                        miLista[gab + i] = temp;
+                        var temp = alumnos[i];
+
+                        alumnos[i] = alumnos[gab + i];
+
+                        alumnos[gab + i] = temp;//var, variable de tipo implicita
+
                     }
 
 
@@ -73,22 +78,21 @@ namespace Ordenamiento
         private void BtnBubble_Click(object sender, RoutedEventArgs e)
         {
 
-
+            //bubble
 
             bool intercambio = false;
             do
             {
-
-
+                
                 intercambio = false;
-                for (int i = 0; i < miLista.Count - 1; i++)
+                for (int i = 0; i < alumnos.Count - 1; i++) //i++ para modificar el valor de la i, peor solo se le quiere sumar 1
                 {
 
-                    if (miLista[i] > miLista[i++])
+                    if (alumnos[i].Faltas > alumnos[i+1].Faltas)
                     {
-                        int temp = miLista[i];
-                        miLista[i] = miLista[i + 1];
-                        miLista[i + 1] = temp;
+                        var temp = alumnos[i];
+                        alumnos[i] = alumnos[i + 1];
+                        alumnos[i + 1] = temp;
                         intercambio = true;
                     }
 
@@ -118,6 +122,58 @@ namespace Ordenamiento
                         alumnos[i] = alumnos[gab + i];
 
                         alumnos[gab + i] = temp;//var, variable de tipo implicita
+
+                    }
+
+
+                }
+                gab--; //restar uno 
+            }
+        }
+
+        private void Btnbubblepromedio_Click(object sender, RoutedEventArgs e)
+        {
+            bool intercambio = false;
+            do
+            {
+
+                intercambio = false;
+                for (int i = 0; i < alumnos.Count - 1; i++) //i++ para modificar el valor de la i, peor solo se le quiere sumar 1
+                {
+
+                    if (alumnos[i].Promedio > alumnos[i + 1].Promedio)
+                    {
+                        var temp = alumnos[i];
+                        alumnos[i] = alumnos[i + 1];
+                        alumnos[i + 1] = temp;
+                        intercambio = true;
+                    }
+
+
+                }
+
+            } while (intercambio);
+        }
+
+        private void Btnshell_mas_Click(object sender, RoutedEventArgs e)
+        {
+            int gab, i, j;
+            gab = alumnos.Count / 2; //el numero de elementos entre dos
+
+
+            while (gab > 0)
+            {
+                for (i = 0; i < alumnos.Count; i++)
+                {
+
+                    //utilizar otra lista, y cuando se evaluen no se hace directo de la lista, si un valor/propiedad de la lsta.
+                    if (gab + i < alumnos.Count && alumnos[i].Promedio > alumnos[gab + i].Promedio)// un string no puede usar el <>
+                    {
+                        var temp = alumnos[i];
+
+                        alumnos[i] = alumnos[gab + i];
+
+                        alumnos[gab - i] = temp;//var, variable de tipo implicita
 
                     }
 
